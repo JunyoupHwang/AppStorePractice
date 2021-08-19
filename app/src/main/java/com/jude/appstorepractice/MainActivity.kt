@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import com.jude.appstorepractice.ui.main.GithubInfo
+import com.jude.appstorepractice.ui.main.ItunesInfo
 import com.jude.appstorepractice.ui.main.MainFragment
 import com.jude.appstorepractice.ui.main.RetrofitBuilder
 import retrofit2.Call
@@ -21,16 +22,29 @@ class MainActivity : AppCompatActivity() {
                 .commitNow()
         }
 
-        RetrofitBuilder.githubApi.getGithubInfo().enqueue(object : Callback<GithubInfo> {
+//        RetrofitBuilder.githubApi.getGithubInfo().enqueue(object : Callback<GithubInfo> {
+//
+//            override fun onResponse(call: Call<GithubInfo>, response: Response<GithubInfo>) {
+//                val userInfo = response.body()
+//
+//                Log.d("RetrofitBuilder response","통신 성공" + userInfo?.name)
+//
+//            }
+//
+//            override fun onFailure(call: Call<GithubInfo>, t: Throwable) {
+//                Log.d("RetrofitBuilder error", t.message.toString())
+//            }
+//        })
+        RetrofitBuilder.itunesApi.getItunesSearchResult("smoothy").enqueue(object : Callback<ItunesInfo> {
 
-            override fun onResponse(call: Call<GithubInfo>, response: Response<GithubInfo>) {
-                val userInfo = response.body()
+            override fun onResponse(call: Call<ItunesInfo>, response: Response<ItunesInfo>) {
+                val response = response.body()
 
-                Log.d("RetrofitBuilder response","통신 성공" + userInfo?.name)
+                Log.d("RetrofitBuilder response","통신 성공" + response?.results)
 
             }
 
-            override fun onFailure(call: Call<GithubInfo>, t: Throwable) {
+            override fun onFailure(call: Call<ItunesInfo>, t: Throwable) {
                 Log.d("RetrofitBuilder error", t.message.toString())
             }
         })
